@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <title>Cisco ACI Application Health Dashboard</title>
+  <script type="text/javascript" language="javascript" src="{{ url_for('static',filename='javascript/jquery-2.2.2.js') }}"></script>
+  <script type="text/javascript" language="javascript" src="{{ url_for('static',filename='javascript/gridster/jquery.gridster.js') }}"></script>
+  <script type="text/javascript" language="javascript" src="{{ url_for('static',filename='javascript/jquery.leanModal.min.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/application.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='styles/jquery.gridster.css') }}">
+
+  <script type=text/javascript>
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    document.addEventListener("DOMContentLoaded", async function() {
+      while(true) {
+        $.ajax({
+          url: "{{ url_for('healthscore_update') }}",
+          method: "POST",
+          success: function (data) {
+            $('.widget').removeClass (function (index, className) {
+              return (className.match (/(^|\s)status-\S+/g) || []).join(' ');
+            });
+            for (var app in data) {
+              var health = data[app];
+              $('#' + app + '_name').html(app);
+              $('#' + app + '_health').html(health);
+              if (health <= 60) {
+                $('#' + app + '_panel').addClass('status-danger');
+              }
+              else if (health <= 80) {
+                $('#' + app + '_panel').addClass('status-warning');
+              }
+              else {
+                $('#' + app + '_panel').addClass('status-healthy');
+              }
+            }
+          }
+        });
+        await sleep(30000);
+      }
+    });
+    
+    $(document).ready( function() {
+      $('li[rel*=leanModal]').on('click', function () {
+        id = $(this).attr('id')
+        dct = {};
+        dct['app'] = id;
+        $('#' + id + '_modal').html('<p>Loading...</p>');
+        $.ajax({
+          url: "{{ url_for('fault_update') }}",
+          method: "POST",
+          data: dct,
+          success: function (data) {
+            if (data) {
+              var faults = data['faults'];
+              $('#' + id + '_modal').html('<h1>' + id + '</h1>');
+              for (var i=0; i < faults.length;i++) {
+              $('#' + id + '_modal').append('<p><strong>Acknowledged:</strong> '+faults[i]['Acknowledged']+'</p>');
+              $('#' + id + '_modal').append('<p><strong>Affected:</strong> '+faults[i]['Affected']+'</p>');
+              $('#' + id + '_modal').append('<p><strong>Description:</strong> '+faults[i]['Description']+'</p>');
+              $('#' + id + '_modal').append('<p><strong>Time:</strong> '+faults[i]['Time']+'</p>');
+              $('#' + id + '_modal').append('<p><strong>Life Cycle:</strong> '+faults[i]['Life Cycle']+'</p>');
+              $('#' + id + '_modal').append('<br>');
+              }
+            }
+          }
+        });
+      });
+    });
+  </script>
+  
+</head>
+
+<body>
+  <div id="container">
+    <h3>Cisco ACI Application Health Dashboard</h3>
+    <br>    
+    <div class="gridster">
+      <ul>
+        {% for app in health_dict %}
+        <li id="{{app}}" href="#{{app}}_modal" rel="leanModal" data-row="{{ (loop.index / 5)|round(1, 'floor')|int + 1 }}" data-col="{{ loop.index % 5 }}" data-sizex="1" data-sizey="1">
+          <div id="{{ app }}_panel" class="widget">
+            <h1 id="{{ app }}_name"></h1>
+            <h2 id="{{ app }}_health"></h2>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <br>
+    <p>Great job! Let everyone know you completed the mission by posting to Spark.<br>
+    <a href="/verify_to_spark">CLICK ME</a></p>
+  </div>
+  {% for app in health_dict %}
+  <div id="{{app}}_modal" class="lean_modal"></div>
+  {% endfor %}
+
+
+</body>
+<script type="text/javascript" language="javascript">
+$(function(){
+  var grid = $(".gridster ul").gridster({
+    widget_margins: [8, 8],
+    widget_base_dimensions: [260, 280]
+  }).data('gridster').disable();
+  $("li[rel*=leanModal]").leanModal();
+  
+});
+</script>
+</html>

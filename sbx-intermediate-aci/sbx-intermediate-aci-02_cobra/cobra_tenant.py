@@ -56,7 +56,7 @@ def main():
     """
     # create a session and define the root
     requests.packages.urllib3.disable_warnings()
-    auth = cobra.mit.session.LoginSession("https://198.18.133.200","admin","C1sco12345")
+    auth = cobra.mit.session.LoginSession("https://sandboxapicdc.cisco.com","admin","ciscopsdt")
     session = cobra.mit.access.MoDirectory(auth)
     session.login()
 

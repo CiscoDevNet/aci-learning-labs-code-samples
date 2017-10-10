@@ -6,17 +6,6 @@ import cobra.mit.session
 from credentials import *
 import requests, json, sys
 
-# MISSION: Provide your Spark Token and the Room ID into which to post
-#          You can get it from https://developer.ciscospark.com 
-#          The RoomId should have been provided by the instructors 
-spark_token = ""
-spark_room_id = ""
-
-if spark_token == "" or spark_room_id == "": 
-    print("\nError: Please edit the views.py file and provide your token and room id\n")
-    sys.exit(1)
-
-
 def get_healthscore():
     session = aci_login()
 
@@ -31,6 +20,8 @@ def get_healthscore():
     for app in apps:
         for health in app.children:
             health_dict[app.name] = int(health.cur)
+            print ("app.name = ",app.name)
+            print (health_dict[app.name])
 
     return health_dict
 
@@ -96,22 +87,15 @@ def fault_update():
     if request.method == 'POST':
         return jsonify(get_faults(request.form['app']))
 
-        
-@app.route('/verify_to_spark', methods=["GET"]) 
-def verify_to_spark(): 
-    message = "I completed the ACI Health Dashboard Mission Completed Successfully!" 
-    post_to_spark(message) 
-    return redirect("/")
 
-        
+
 def post_to_spark(message):
     """
 	Simple API Call to Post Message to Spark
 	"""
     u = "https://api.ciscospark.com/v1/messages"
-    headers = {"Content-type": "application/json; charset=utf-8", 
+    headers = {"Content-type": "application/json; charset=utf-8",
                "Authorization": "Bearer {}".format(spark_token)}
-    body = {"roomId": spark_room_id, 
+    body = {"roomId": spark_room_id,
             "markdown": message}
     return requests.post(u, headers=headers, data=json.dumps(body))
-    

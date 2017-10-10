@@ -1,3 +1,3 @@
-URL = 'https://198.18.133.200'
+URL = 'https://sandboxapicdc.cisco.com'
 LOGIN = 'admin'
-PASSWORD = 'C1sco12345'
+PASSWORD = 'ciscopsdt'

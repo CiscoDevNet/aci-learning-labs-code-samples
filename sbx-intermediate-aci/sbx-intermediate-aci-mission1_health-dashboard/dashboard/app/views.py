@@ -6,6 +6,7 @@ import cobra.mit.session
 from credentials import *
 import requests, json, sys
 
+
 def get_healthscore():
     session = aci_login()
 
@@ -20,23 +21,20 @@ def get_healthscore():
     for app in apps:
         for health in app.children:
             health_dict[app.name] = int(health.cur)
-            print ("app.name = ",app.name)
-            print (health_dict[app.name])
 
     return health_dict
-
 
 def get_faults(app_name):
     session = aci_login()
 
     fault_query = cobra.mit.request.DnQuery('uni/tn-SnV/ap-{}'.format(app_name))
-    fault_query.queryTarget = SET ME
-    fault_query.subtreeInclude = SET ME
+    fault_query.queryTarget = 'subtree'
+    fault_query.subtreeInclude = 'faults,no-scoped'
     fault_query.orderBy = 'faultInfo.severity|desc'
     fault_query.page = 0
     fault_query.pageSize = 15
 
-    faults = SET ME
+    faults = session.query(fault_query)
     faults_dict = {'faults': []}
 
     for fault in faults:
@@ -88,14 +86,3 @@ def fault_update():
         return jsonify(get_faults(request.form['app']))
 
 
-
-def post_to_spark(message):
-    """
-	Simple API Call to Post Message to Spark
-	"""
-    u = "https://api.ciscospark.com/v1/messages"
-    headers = {"Content-type": "application/json; charset=utf-8",
-               "Authorization": "Bearer {}".format(spark_token)}
-    body = {"roomId": spark_room_id,
-            "markdown": message}
-    return requests.post(u, headers=headers, data=json.dumps(body))

@@ -87,10 +87,3 @@ def fault_update():
         return jsonify(get_faults(request.form['app']))
 
 
-@app.route('/verify_to_spark', methods=["GET"])
-def verify_to_spark():
-    message = "I completed the ACI Health Dashboard Mission Completed Successfully!"
-    post_to_spark(message)
-    return redirect("/")
-
-

@@ -14,6 +14,7 @@ from acitoolkit import Faults
 from credentials import URL, LOGIN, PASSWORD
 import requests, json
 
+requests.packages.urllib3.disable_warnings() # Disable warning message
 
 fault_count = {"total": 0, "critical": 0}
 

@@ -14,6 +14,7 @@ from acitoolkit import Tenant, AppProfile
 from credentials import URL, LOGIN, PASSWORD
 import requests, json, sys
 
+requests.packages.urllib3.disable_warnings() # Disable warning message
 
 # What to look for?
 mission_tenant = "SnV"

@@ -9,6 +9,8 @@ This script will query the APIC for Faults and report
 them to Cisco Spark.
 """
 
+requests.packages.urllib3.disable_warnings() # Disable warning message
+
 from acitoolkit.acitoolkit import Session
 from acitoolkit import Faults
 from credentials import URL, LOGIN, PASSWORD

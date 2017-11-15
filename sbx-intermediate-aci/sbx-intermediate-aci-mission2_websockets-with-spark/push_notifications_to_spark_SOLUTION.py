@@ -3,6 +3,8 @@ import argparse
 from acitoolkit.acitoolkit import *
 from credentials import *
 
+requests.packages.urllib3.disable_warnings() # Disable warning message
+
 cli_args = argparse.ArgumentParser("Post to Spark", "Collects an Access Token to connect to Spark Chatroom")
 cli_args.add_argument('-t', '--token', required=True,
                       help="The Access Token provided by https://developer.ciscospark.com/ after login.")

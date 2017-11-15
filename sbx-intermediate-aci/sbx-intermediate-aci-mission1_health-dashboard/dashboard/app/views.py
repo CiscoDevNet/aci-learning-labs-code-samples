@@ -6,6 +6,7 @@ import cobra.mit.session
 from credentials import *
 import requests, json, sys
 
+requests.packages.urllib3.disable_warnings() # Disable warning message
 
 def get_healthscore():
     session = aci_login()

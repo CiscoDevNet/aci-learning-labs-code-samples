@@ -1,0 +1,15 @@
+acicobra===3.0-1k
+acimodel===3.0-1k
+arya==1.1.5
+asn1crypto==0.23.0
+certifi==2017.11.5
+cffi==1.11.2
+chardet==3.0.4
+cryptography==2.1.4
+enum34==1.1.6
+idna==2.6
+ipaddress==1.0.18
+pycparser==2.18
+requests==2.18.4
+six==1.11.0
+urllib3==1.22

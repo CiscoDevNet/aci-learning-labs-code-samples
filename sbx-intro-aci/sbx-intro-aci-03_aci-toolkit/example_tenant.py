@@ -7,7 +7,8 @@ session = Session(URL, LOGIN, PASSWORD)
 session.login()
 
 #create tenant and vrf
-tenant = Tenant("Example_Tenant")
+tenant_name = "INITIALS_Example_Tenant"
+tenant = Tenant(tenant_name)
 vrf = Context("Example_VRF", tenant)
 
 # create bridge domain with vrf relationship

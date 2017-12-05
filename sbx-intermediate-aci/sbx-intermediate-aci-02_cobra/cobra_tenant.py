@@ -6,6 +6,7 @@ import cobra.mit.session
 import cobra.mit.request
 import cobra.model.pol
 import cobra.model.fv
+from credentials import *
 
 # use argparse to provide optional arguments and a help menu
 cli_args = argparse.ArgumentParser("Create Tenant", "Creates a Tenant in the specified ACI fabric.",
@@ -56,7 +57,7 @@ def main():
     """
     # create a session and define the root
     requests.packages.urllib3.disable_warnings()
-    auth = cobra.mit.session.LoginSession("https://sandboxapicdc.cisco.com","admin","ciscopsdt")
+    auth = cobra.mit.session.LoginSession(URL, LOGIN, PASSWORD)
     session = cobra.mit.access.MoDirectory(auth)
     session.login()
 

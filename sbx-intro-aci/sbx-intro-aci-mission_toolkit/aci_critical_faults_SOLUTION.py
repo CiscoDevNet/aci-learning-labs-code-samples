@@ -1,12 +1,9 @@
 #! /usr/bin/env python
 """
-DevNet Express for Data Center Infrastructure
-Intro to ACI Programmability Mission
-
 Reporting Critical Faults to Cisco Spark
 
-This script will query the APIC for Faults and report
-them to Cisco Spark.
+This script will query the APIC for Faults and output
+them to the Terminal.
 """
 
 from acitoolkit.acitoolkit import Session

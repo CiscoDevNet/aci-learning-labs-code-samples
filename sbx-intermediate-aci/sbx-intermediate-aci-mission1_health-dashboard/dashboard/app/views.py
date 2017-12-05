@@ -85,5 +85,3 @@ def healthscore_update():
 def fault_update():
     if request.method == 'POST':
         return jsonify(get_faults(request.form['app']))
-
-

@@ -49,7 +49,7 @@ def create_app(tenant_obj, app_name, bd_object, vlan_web, vlan_db):
 	epg_web_phys_domain = cobra.model.fv.RsDomAtt(epg_web, tDn='uni/phys-SnV_phys')
 	epg_web_path_a = cobra.model.fv.RsPathAtt(epg_web, tDn='topology/pod-1/protpaths-101-102/pathep-[SnV_FI-1B]', encap=vlan_web)
 	epg_web_path_b = cobra.model.fv.RsPathAtt(epg_web, tDn='topology/pod-1/protpaths-101-102/pathep-[SnV_FI-1A]', encap=vlan_web)
-	# epg_web_path_c = cobra.model.fv.RsPathAtt(epg_web, tDn='topology/pod-1/paths-101/pathep-[eth1/10]', encap="vlan-10")
+	epg_web_path_c = cobra.model.fv.RsPathAtt(epg_web, tDn='topology/pod-1/paths-101/pathep-[eth1/10]', encap=vlan_web)
 	epg_web_provided = cobra.model.fv.RsProv(epg_web, tnVzBrCPName='web')
 	epg_web_consumed = cobra.model.fv.RsCons(epg_web, tnVzBrCPName='database')
 

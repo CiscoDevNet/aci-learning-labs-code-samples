@@ -1,4 +1,4 @@
-#! usr/bin/env python
+#! /usr/bin/env python
 """
 Python script to configure the DevNet Always On APIC Sandbox
 for use in the ACI Learning Labs.

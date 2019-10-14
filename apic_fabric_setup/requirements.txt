@@ -5,11 +5,11 @@ asn1crypto==0.23.0
 certifi==2017.11.5
 cffi==1.11.2
 chardet==3.0.4
-cryptography==2.1.4
+cryptography>=2.3
 enum34==1.1.6
 idna==2.6
 ipaddress==1.0.18
 pycparser==2.18
-requests==2.18.4
+requests>=2.20.0
 six==1.11.0
-urllib3==1.22
+urllib3>=1.24.2

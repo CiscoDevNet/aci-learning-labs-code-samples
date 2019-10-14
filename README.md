@@ -9,14 +9,14 @@ This repository holds the code samples for the [DevNet](http://developer.cisco.c
 ## Local Workstation Requirements
 The code samples in these labs all leverage Python as the programming language.  In order to run the exercises and code, you'll need to meet the following requirements.  
 
-> Full details on how to setup are included in the Learning Lab Setup Steps.  
+> Full details on how to setup are included in the Learning Lab's "How To Setup Your Own Computer."
 
-1. Python 2.7.12 or higher
+1. Python 3.7 or higher
 1. Python Virtual Environment `pip install virtualenv`
-1. [ACI Cobra SDK](http://cobra.readthedocs.io) for Python
+1. [ACI Cobra SDK](http://cobra.readthedocs.io) for Python. (Note that the DevNet Sandbox does not contain the Cobra SDK files for download but you can get them on DevNet by logging in.)
 1. [ACI Toolkit](http://acitoolkit.readthedocs.io) for Python
 
-> It is highly recommended to install all Python requirements within a virtual environment, and not the default Python environment on your workstation.  
+> It is highly recommended to install all Python requirements within a virtual environment, and not the default Python environment on your workstation.
 
 ## Sandbox Lab Infrastructure Setup
 Also included in this repository are scripts to prepare the DevNet Always On Sandbox for ACI/APIC.  These scripts initialize the APIC Simulator and deploy the tenants and application policy leveraged in the Learning Labs.  To run the baselining scripts:

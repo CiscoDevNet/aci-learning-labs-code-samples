@@ -15,6 +15,9 @@ import cobra.model.pol
 from cobra.internal.codec.xmlcodec import toXMLStr
 from credentials import *
 
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 # configuration variables
 tenant = 'Heroes'
 bridge_domain = 'Hero_Land'
@@ -60,7 +63,7 @@ fvRsProv3 = cobra.model.fv.RsProv(fvAEPg3, tnVzBrCPName=u'web', matchT=u'Atleast
 
 
 # commit the generated code to APIC
-print toXMLStr(fvTenant)
+print(toXMLStr(fvTenant))
 c = cobra.mit.request.ConfigRequest()
 c.addMo(fvTenant)
 md.commit(c)

@@ -4,3 +4,4 @@ scratch.py
 acitoolkit/
 notes.txt
 webarya/
+__pycache__

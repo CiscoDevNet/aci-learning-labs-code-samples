@@ -11,8 +11,7 @@ The code samples in these labs all leverage Python as the programming language. 
 
 > Full details on how to setup are included in the Learning Lab Setup Steps.  
 
-1. Python 2.7.12 or higher
-1. Python Virtual Environment `pip install virtualenv`
+1. Python 3.7.5 or higher
 1. [ACI Cobra SDK](http://cobra.readthedocs.io) for Python
 1. [ACI Toolkit](http://acitoolkit.readthedocs.io) for Python
 

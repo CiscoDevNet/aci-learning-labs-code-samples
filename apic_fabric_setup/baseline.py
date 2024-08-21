@@ -7,9 +7,14 @@ Requirements:
   - ACI Cobra 3.0-1k or higher
 """
 
-# Run startup_script.py
-import startup_script
+from startup_script import configure_apic
 
-# Run main() from create_snv_apps
-import create_snv_apps
-create_snv_apps.main()
+
+def main():
+    print("\n\nStarting the APIC setup...")
+    configure_apic()
+    print("APIC setup complete.\n\n")
+
+
+if __name__ == "__main__":
+    main()

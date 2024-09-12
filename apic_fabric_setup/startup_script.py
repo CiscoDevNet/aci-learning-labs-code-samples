@@ -1,4 +1,3 @@
-
 from cobra.mit.access import MoDirectory
 from cobra.mit.session import LoginSession
 from cobra.mit.request import ConfigRequest
@@ -32,13 +31,11 @@ def create_or_update_fabric_node_ident(
     if dn in existing_policies:
         print(f"Updating existing policy: {name} with DN: {dn}")
         node_ident = existing_policies[dn]
-        # Update attributes if needed
-        if node_ident.serial != serial or node_ident.nodeId != node_id:
-            node_ident.serial = serial
-            node_ident.nodeId = node_id
-            print(f"Updated attributes for {name}")
+        # Since nodeId and serial are create-only, we do not update them for existing nodes
+        print(f"Existing Node Ident {name} found. Skipping serial and nodeId update.")
     else:
         print(f"Creating new Node Ident: {name} with DN: {dn}")
+        # Set serial and nodeId only for new nodes
         node_ident = fabric.NodeIdentPol(
             parent_mo, serial=serial, nodeId=node_id, name=name
         )
@@ -46,11 +43,16 @@ def create_or_update_fabric_node_ident(
 
 
 def configure_apic():
-    print("\n\nConfiguring APIC...\n\n")
+    print("Baselining APIC Simulator for Learning Labs")
+
+    # Log in to the APIC
+    print("\nConfiguring APIC...\n")
     ls = LoginSession(URL, LOGIN, PASSWORD)
     md = MoDirectory(ls)
     md.login()
 
+    # Fabric Node Setup
+    print("Setting up Fabric Nodes")
     existing_policies_dn = [
         "uni/controller/nodeidentpol/nodep-TEP-1-101",
         "uni/controller/nodeidentpol/nodep-TEP-1-102",
@@ -80,28 +82,31 @@ def configure_apic():
             c.addMo(node_mo)
             print(f"Added {attrs['name']} to ConfigRequest")
 
-    print("Config Request MOs:", c.configMos)
-
     if c.configMos:
         try:
             response = md.commit(c)
-            print("\n\nConfiguration committed successfully.")
+            print("\nConfiguration committed successfully.")
             print("Commit Response:", response)
         except Exception as e:
             print(f"Error committing configuration: {e}")
     else:
         print("No MOs to commit")
 
-    # Baselining APIC Simulator
-    # (Add any baseline configuration steps here)
+    # Fabric Policies Setup (Placeholder)
+    print("\nConfiguring Fabric Policies")
+    # Add logic for fabric policies here if needed
 
-    # Setting up Fabric Nodes
-    # (This is already handled in the above code)
+    # Tenant Setup (Placeholder)
+    print("\nSetting up Common Tenant")
+    # Add logic for Common Tenant setup here if needed
 
-    # Setting up Tenants (if the tenant module is available)
-    # If tenant module or related functionalities are available, you would add setup here.
+    print("Setting up Heroes Tenant")
+    # Add logic for Heroes Tenant setup here if needed
 
-    print("\n\nAPIC configuration complete.")
+    print("Setting up SnV Tenant")
+    # Add logic for SnV Tenant setup here if needed
+
+    print("\nAPIC setup complete.")
 
 
 def main():

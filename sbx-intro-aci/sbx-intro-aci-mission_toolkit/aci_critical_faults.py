@@ -6,13 +6,12 @@ This script will query the APIC for Faults and output
 them to the Terminal.
 """
 
-requests.packages.urllib3.disable_warnings() # Disable warning message
-
 from acitoolkit.acitoolkit import Session
 from acitoolkit import Faults
 from credentials import URL, LOGIN, PASSWORD
 import requests, json
 
+requests.packages.urllib3.disable_warnings() # Disable warning message
 
 fault_count = {"total": 0, "critical": 0}
 
